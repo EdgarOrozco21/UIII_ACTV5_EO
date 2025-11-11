@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card border-danger">
+                <div class="card-header bg-danger text-white">
+                    <h4 class="mb-0">⚠️ Confirmar Eliminación</h4>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">
+                        Estás a punto de eliminar al empleado: 
+                        <strong>{{ empleado.nombre }} {{ empleado.apellido }}</strong>.
+                    </p>
+                    <p class="card-text">
+                        Esta acción es irreversible. ¿Deseas continuar?
+                    </p>
+                    
+                    <form action="{% url 'eliminar_empleado' empleado.id %}" method="post" class="mt-4">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger me-2">
+                            Sí, Eliminar Permanentemente
+                        </button>
+                        <a href="{% url 'ver_empleados' %}" class="btn btn-secondary">Cancelar</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

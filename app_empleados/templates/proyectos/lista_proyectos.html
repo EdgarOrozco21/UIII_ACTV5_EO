@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Lista de Proyectos 💡</h2>
+        <a href="{% url 'proyecto_nuevo' %}" class="btn btn-primary">Agregar Nuevo Proyecto</a>
+    </div>
+
+    {% if object_list %}
+    <div class="table-responsive">
+        <table class="table table-hover align-middle shadow-sm">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Inicio</th> 
+                    <th>Fin Estimado</th>
+                    <th>Estado</th>
+                    <th># Empleados</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for proyecto in object_list %}
+                <tr>
+                    <td>{{ proyecto.pk }}</td>
+                    <td><a href="{% url 'proyecto_detalle' pk=proyecto.pk %}" class="fw-bold text-decoration-none">{{ proyecto.nombre }}</a></td>
+                    
+                    <td>{{ proyecto.fecha_inicio|date:"Y-m-d" }}</td> 
+                    
+                    <td>{{ proyecto.fecha_fin_estimada|default:"N/A"|date:"Y-m-d" }}</td>
+                    <td>
+                        <span class="badge 
+                            {% if proyecto.estado == 'En Progreso' %}bg-success{% elif proyecto.estado == 'Pendiente' %}bg-warning text-dark{% elif proyecto.estado == 'Completado' %}bg-primary{% else %}bg-danger{% endif %}">
+                            
+                            {{ proyecto.get_estado_display }}
+                        </span>
+                    </td>
+                    
+                    <td>{{ proyecto.num_empleados }}</td> 
+                    
+                    <td>
+                        <a href="{% url 'proyecto_editar' pk=proyecto.pk %}" class="btn btn-sm btn-info text-white me-2" title="Editar">✏️</a>
+                        <a href="{% url 'proyecto_borrar' pk=proyecto.pk %}" class="btn btn-sm btn-danger" title="Eliminar">🗑️</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="alert alert-warning" role="alert">
+        No hay proyectos registrados.
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

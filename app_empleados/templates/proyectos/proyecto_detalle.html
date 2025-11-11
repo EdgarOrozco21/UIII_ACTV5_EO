@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Detalle del Proyecto: {{ proyecto.nombre }}</h2>
+        <div>
+            <a href="{% url 'proyecto_editar' pk=proyecto.pk %}" class="btn btn-info text-white me-2">Editar ✏️</a>
+            <a href="{% url 'proyecto_borrar' pk=proyecto.pk %}" class="btn btn-danger">Eliminar 🗑️</a>
+        </div>
+    </div>
+    <hr>
+
+    <div class="row">
+        <div class="col-md-7">
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-light fw-bold">Información General</div>
+                <div class="card-body">
+                    <p><strong>Descripción:</strong> {{ proyecto.descripcion }}</p>
+                    <p>
+                        <strong>Estado:</strong> 
+                        <span class="badge 
+                            {% if proyecto.estado == 'Completado' %}bg-success{% elif proyecto.estado == 'En Progreso' %}bg-primary{% elif proyecto.estado == 'Pendiente' %}bg-warning text-dark{% else %}bg-danger{% endif %}">
+                            {{ proyecto.get_estado_display }}
+                        </span>
+                    </p>
+                    <p><strong>Fecha de Inicio:</strong> {{ proyecto.fecha_inicio|date:"d M, Y" }}</p>
+                    <p><strong>Fin Estimado:</strong> {{ proyecto.fecha_fin_estimada|default:"No definido"|date:"d M, Y" }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="card shadow-sm">
+                <div class="card-header bg-light fw-bold">Empleados Asignados</div>
+                <div class="card-body">
+                    {% if proyecto.empleados.all %}
+                        <ul class="list-group list-group-flush">
+                            {% for empleado in proyecto.empleados.all %}
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <a href="{% url 'empleado_detalle' pk=empleado.pk %}">{{ empleado }}</a>
+                                    <span class="badge bg-secondary rounded-pill">{{ empleado.cargo }}</span>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p class="text-muted">No hay empleados asignados a este proyecto.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <a href="{% url 'ver_proyectos' %}" class="btn btn-secondary">⬅️ Volver a Proyectos</a>
+    </div>
+</div>
+{% endblock %}

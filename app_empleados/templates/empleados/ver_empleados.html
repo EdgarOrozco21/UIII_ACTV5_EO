@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Lista de Empleados</h2>
+        <a href="{% url 'agregar_empleado' %}" class="btn btn-primary">
+            Agregar Nuevo Empleado
+        </a>
+    </div>
+
+    {% if empleados %}
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre Completo</th>
+                    <th>Cargo</th>
+                    <th>Área</th> 
+                    <th>Teléfono</th>
+                    <th class="text-end">Salario</th>
+                    <th>Fecha Contratación</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for empleado in empleados %}
+                <tr>
+                    <td>{{ empleado.id }}</td>
+                    <td>{{ empleado.nombre }} {{ empleado.apellido }}</td>
+                    <td>{{ empleado.cargo }}</td>
+                    
+                    {# ⭐ CAMPOS NUEVOS AÑADIDOS A LA TABLA #}
+                    <td>{{ empleado.area }}</td>
+                    <td>{{ empleado.telefono }}</td>
+                    {# Formato de salario opcional para mejor visualización #}
+                    <td class="text-end">${{ empleado.salario|floatformat:2 }}</td> 
+                    
+                    <td>{{ empleado.fecha_contratacion|date:"Y-m-d" }}</td>
+                    
+                    <td>
+                        {# Botón para ver más detalles, incluyendo Email #}
+                        <a href="{% url 'empleado_detalle' empleado.id %}" class="btn btn-sm btn-secondary me-2">Ver Detalle</a>
+                        
+                        <a href="{% url 'empleado_editar' empleado.id %}" class="btn btn-sm btn-info text-white me-2">Editar</a>
+                        
+                        <a href="{% url 'eliminar_empleado' empleado.id %}" class="btn btn-sm btn-danger">Borrar</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="alert alert-warning" role="alert">
+        Aún no hay empleados registrados. ¡Agrega el primero para ver la lista!
+    </div>
+    {% endif %}
+</div>  
+{% endblock content %}

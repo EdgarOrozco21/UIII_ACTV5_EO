@@ -1,0 +1,57 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+    <div class="container">
+        <a class="navbar-brand d-flex align-items-center" href="{% url 'inicio_clientes' %}">
+            <span style="font-weight:700; font-size:1.5rem; margin-right:5px;">💡</span>
+            <span class="ms-2">Marketing-0591</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navMenu">
+            <ul class="navbar-nav ms-auto">
+                
+                <li class="nav-item"><a class="nav-link" href="{% url 'inicio_clientes' %}">Inicio</a></li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Clientes <span class="badge bg-primary rounded-pill">👤</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{% url 'agregar_cliente' %}">Agregar Cliente</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="{% url 'ver_clientes' %}">Ver Clientes</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Empleados <span class="badge bg-info rounded-pill">👥</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{% url 'agregar_empleado' %}">Agregar Empleado</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="{% url 'ver_empleados' %}">Ver Empleados</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Proyectos <span class="badge bg-success rounded-pill">📋</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <!-- ¡CORREGIDO! Cambiado de 'agregar_proyecto' a 'proyecto_nuevo' -->
+                        <li><a class="dropdown-item" href="{% url 'proyecto_nuevo' %}">Agregar Proyecto</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="{% url 'ver_proyectos' %}">Ver Proyectos</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin">Admin</a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</nav>

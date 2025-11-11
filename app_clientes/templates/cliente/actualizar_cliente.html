@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card shadow-sm">
+    <div class="card-header bg-warning text-dark">
+        <h2 class="card-title mb-0">Actualizar Cliente: {{ cliente.nombre }}</h2>
+    </div>
+    <div class="card-body">
+        <form method="post" action="{% url 'realizar_actualizacion_cliente' cliente.id %}">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Nombre</label>
+                    <input class="form-control" name="nombre" value="{{ cliente.nombre }}" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Empresa</label>
+                    <input class="form-control" name="empresa" value="{{ cliente.empresa }}" required>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Correo</label>
+                    <input class="form-control" name="correo" value="{{ cliente.correo }}" type="email" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Teléfono</label>
+                    <input class="form-control" name="telefono" value="{{ cliente.telefono|default_if_none:'' }}">
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Dirección</label>
+                <input class="form-control" name="direccion" value="{{ cliente.direccion|default_if_none:'' }}">
+            </div>
+            
+            <div class="mb-4">
+                <label class="form-label">Estado</label>
+                <input class="form-control" name="estado" value="{{ cliente.estado }}" required>
+            </div>
+            
+            <button class="btn btn-warning" type="submit">Actualizar Datos</button>
+            <a href="{% url 'ver_clientes' %}" class="btn btn-secondary">Cancelar</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

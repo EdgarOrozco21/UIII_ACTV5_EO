@@ -1,0 +1,37 @@
+{% extends "base.html" %} 
+{% block content %}
+    <h2>Lista de Proyectos 💡</h2>
+    <a href="{% url 'proyecto_nuevo' %}" class="btn btn-primary">Agregar Nuevo Proyecto</a>
+    <hr>
+    
+    {% if object_list %}
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Estado</th>
+                    <th>Fecha Creación</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for proyecto in object_list %}
+                    <tr>
+                        <td>{{ proyecto.pk }}</td>
+                        <td><a href="{% url 'proyecto_detalle' proyecto.pk %}">{{ proyecto.nombre }}</a></td>
+                        <td>{{ proyecto.estado }}</td>
+                        <td>{{ proyecto.fecha_creacion|date:"Y-m-d" }}</td>
+                        <td>
+                            <a href="{% url 'proyecto_editar' proyecto.pk %}" class="btn btn-sm btn-info">Editar</a>
+                            <a href="{% url 'proyecto_borrar' proyecto.pk %}" class="btn btn-sm btn-danger">Borrar</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div class="alert alert-warning">No hay proyectos registrados.</div>
+    {% endif %}
+
+{% endblock content %}

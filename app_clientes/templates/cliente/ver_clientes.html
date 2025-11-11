@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2 class="mb-4">Lista de Clientes Registrados</h2>
+
+<div class="text-end mb-3">
+    <a href="{% url 'agregar_cliente' %}" class="btn btn-success">➕ Agregar Nuevo Cliente</a>
+</div>
+
+<div class="table-responsive bg-white rounded shadow-sm">
+    <table class="table table-hover align-middle mb-0">
+        <thead class="table-light">
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Empresa</th>
+                <th>Contacto</th>
+                <th>Fecha Reg.</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for c in clientes %}
+            <tr>
+                <td>{{ c.id }}</td>
+                <td><strong class="text-primary">{{ c.nombre }}</strong></td>
+                <td>{{ c.empresa }}</td>
+                <td>{{ c.correo }}<br><small>{{ c.telefono }}</small></td>
+                <td>{{ c.fecha_registro|date:"d M, Y" }}</td>
+                <td><span class="badge bg-info text-dark">{{ c.estado }}</span></td>
+                <td class="text-nowrap">
+                    <a class="btn btn-sm btn-outline-info" href="{% url 'actualizar_cliente' c.id %}">Editar</a>
+                    <form action="{% url 'borrar_cliente' c.id %}" method="post" style="display:inline-block;" 
+                          onsubmit="return confirm('¿Está seguro de querer ELIMINAR al cliente: {{ c.nombre }}?')">
+                        {% csrf_token %}
+                        <button class="btn btn-sm btn-outline-danger" type="submit">Borrar</button>
+                    </form>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="7" class="text-center py-4">
+                    <p class="lead text-muted">Aún no hay clientes registrados. ¡Comienza ahora!</p>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

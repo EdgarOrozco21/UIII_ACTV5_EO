@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card shadow-sm">
+    <div class="card-header bg-primary text-white">
+        <h2 class="card-title mb-0">Nuevo Cliente 👤</h2>
+    </div>
+    <div class="card-body">
+        <form method="post" action="{% url 'agregar_cliente' %}">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Nombre</label>
+                    <input class="form-control" name="nombre" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Empresa</label>
+                    <input class="form-control" name="empresa" required>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Correo</label>
+                    <input class="form-control" name="correo" type="email" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Teléfono</label>
+                    <input class="form-control" name="telefono">
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Dirección</label>
+                <input class="form-control" name="direccion">
+            </div>
+            
+            <div class="mb-4">
+                <label class="form-label">Estado</label>
+                <input class="form-control" name="estado" required>
+            </div>
+            
+            <button class="btn btn-primary" type="submit">Guardar Cliente</button>
+            <a href="{% url 'ver_clientes' %}" class="btn btn-secondary">Cancelar</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

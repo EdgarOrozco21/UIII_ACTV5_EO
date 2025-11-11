@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AgenciaDeMarketing | UIII 0591</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Estilos suaves */
+        body {
+            background-color: #f8f9fa; /* Gris muy claro */
+            min-height: 100vh;
+            padding-bottom: 70px; /* Espacio para el footer fijo */
+            position: relative;
+        }
+        .navbar {
+            background-color: #ffffff !important; /* Blanco */
+        }
+        .footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            background-color: #e9ecef !important; /* Gris claro */
+            box-shadow: 0 -2px 5px rgba(0,0,0,.05);
+            z-index: 1030;
+        }
+    </style>
+</head>
+<body class="bg-light text-dark">
+    {% include 'navbar.html' %}
+
+    <main class="container py-4">
+        {% block content %}{% endblock %}
+    </main>
+
+    {% include 'footer.html' %}
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
